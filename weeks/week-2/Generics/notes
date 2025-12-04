@@ -1,0 +1,32 @@
+List<String> list = new ArrayList<String>();
+list.add("Hi");
+String x = list.get(0);
+
+the previous code is compiled into this code:
+List list = new ArrayList<Object>();
+list.add("Hi");
+String x = (String)list.get(0);
+
+At execution time, there's no way to know <T> was <String> for the object, that info is GONE
+        -> So, some things are not possible to do (There are some limitations)
+        -> Can't use generic classes/methods with primitive types; must use objects (or wrappers)
+        -> Can't create new objects (dynamic type) using type (references(static types) are okay, though)
+                -> Example:
+                T foo = new T(); // unexpected type, required: class
+                                           // found: type parameter T
+        -> Can't use casts or instanceof with parameterized types
+            -> Example:
+            public void foo(Box <T> box) {
+                if (box instanceof Box<Integer>) {
+                }
+                ....
+            }
+            -> Can't create arrays parametrized types
+                -> Example:
+                Box<Integer>[] myBoxes = new Box<Integer>[2]; // compile-time error
+
+
+
+
+command + b -> to go to the javaDoc related to a word you are in
+option + arrow up

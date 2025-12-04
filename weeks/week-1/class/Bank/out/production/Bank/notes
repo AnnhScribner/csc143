@@ -1,0 +1,56 @@
+ -Xlint:rawtypes,unchecked --- To avoid overusing generics
+ Go to:
+ Settings -> Build, Execution, Deployment ->
+                            Compiler -> Java compiler -> Additional command line parameters :
+                                                                                       -Xlint:rawtypes,unchecked
+Then go to:
+Build -> Rebuild Project
+
+------------------------------------------------------------------------------------
+
+
+Don't use @throw for preconditions -> JavaDoc
+Every global needs a description -> JavaDoc
+
+
+------------------------------------------------------------------------------------
+
+Enumerated Types:
+- they are implicitly static
+- client code won't even compile if they don't use one of the values I set in my enumerated
+- enum are in a different box and they are represented as <<enum>> NameOfTheClass
+- all the values in enum will be public by nature (+)
+- the references for enum will be null by default, so i need to check it when i pass as a parameter to other methods
+
+CODING
+
+public class Student{
+    public enum Standing {     // static is implied, for these
+        HONOR_ROLL,
+        GOOD_STANDING,
+        PROBATION,
+        EXPELLED
+    }
+
+private Standing standing;      // instance variable
+
+public void setStanding(Standing standing) {
+        // I'd need to add a precondition for null values
+        this.standing = standing;
+}
+
+}
+
+ACCESSING ENUM FROM OUTSIDE THE CONTAINING CLASS
+
+public static void main(String[]) args {
+        Student myStudent = new Student("12344321");
+        myStudent.setName("Cochran, Claudia");
+        myStudent.setQuarterAttended(13);
+        myStudent.sewtGpa(3.8);
+        myStudent.setStanding(Student.Standing.HONOR_ROLL);         <----------------------------------
+
+        System.out.println(myStudent);
+}
+
+for testing I can use double equalls (==) because they will turn integer, they are not tested like objects
